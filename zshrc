@@ -27,7 +27,7 @@ source /Users/USER/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 alias iip='ipconfig getifaddr en1'
 alias eip='curl ifconfig.me'
 alias ql='qlmanage -p'
-alias weather='ansiweather -l Dubai -a false -s true'
+alias weather='ansiweather -l CITY -a false -s true'
 alias wolfram='wolframalpha'
 alias pytop='bpytop'
 alias pipes='pipes.sh'
