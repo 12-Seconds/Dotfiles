@@ -1,1 +1,12 @@
+call plug#begin(expand('~/.vim/plugged'))
 
+Plug 'arcticicestudio/nord-vim'
+Plug 'junegunn/fzf.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
+Plug 'scrooloose/syntastic'
+
+call plug#end()
+
+colorscheme nord
