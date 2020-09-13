@@ -1,4 +1,9 @@
 set nocompatible
+set expandtab
+set autoindent
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
 filetype off
 set backspace=indent,eol,start
 
@@ -8,6 +13,13 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'neoclide/coc.nvim'
+Plugin 'preservim/nerdtree'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'junegunn/fzf'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'thaerkh/vim-indentguides'
 
 call vundle#end()
 filetype plugin indent on
@@ -25,5 +37,30 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFE
 set hlsearch
 
 if filereadable(expand("~/.vimrc.plug"))
-	source ~/.vimrc.plug
+|   source ~/.vimrc.plug
 endif
+
+nmap <F6> :NERDTreeToggle<CR>
+nmap <M-TAB> space()<CR>
+
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+inoremap <silent><expr> <TAB>
+    ┆ \ pumvisible() ? "\<C-n>" :
+    ┆ \ <SID>check_back_space() ? "\<TAB>" :
+    ┆ \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
