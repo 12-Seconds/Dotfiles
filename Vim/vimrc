@@ -1,66 +1,115 @@
+" Must be first line
 set nocompatible
-set expandtab
-set autoindent
-set noexpandtab
-set tabstop=4
-set shiftwidth=4
-filetype off
-set backspace=indent,eol,start
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Binds Control+s to save
+map <C-s> :w<cr>
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'wakatime/vim-wakatime'
-Plugin 'neoclide/coc.nvim'
-Plugin 'preservim/nerdtree'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'junegunn/fzf'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'thaerkh/vim-indentguides'
+" Binds Al+q to save and quit
+map <M-q> :wq<cr>
 
-call vundle#end()
-filetype plugin indent on
-
-:set guicursor+=n:hor20-Cursor/lCursor
-
-syntax on
-set wrap
-set ttyfast
-set ttyfast
-set laststatus=2
-set matchpairs+=<:>
-set number
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
-set hlsearch
-
-if filereadable(expand("~/.vimrc.plug"))
-|   source ~/.vimrc.plug
-endif
-
+" Binds F6 to Nerdtree
 nmap <F6> :NERDTreeToggle<CR>
-nmap <M-TAB> space()<CR>
 
-" <Ctrl-l> redraws the screen and removes any search highlighting.
+" Binds Control-l to redraw screen and remove highlights
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
+" Sources a plugin file
+if filereadable(expand("~/.vimrc.plug"))
+	source ~/.vimrc.plug
+endif
+
+" Remaps Tab to choose suggestion Coc
 inoremap <silent><expr> <TAB>
-    ┆ \ pumvisible() ? "\<C-n>" :
-    ┆ \ <SID>check_back_space() ? "\<TAB>" :
-    ┆ \ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+" Forgot what this does, but I know it's something important
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Inserts suggested text when Enter is placed Coc
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" Spell checking
+set spell spelllang=en_us
+
+" Convert tabs to spaces
+set expandtab
+
+" Automatically indent lines
+set autoindent
+
+" Set tab to 4 spaces
+set tabstop=4
+
+" Set tab to 4 spaces
+set shiftwidth=4
+
+" Disable automatic file detection
+filetype off
+
+" Make backspace key work
+set backspace=indent,eol,start
+
+" Sets up Vundle for extensions
+set rtp+=~/.vim/bundle/Vundle.vim
+
+" Sets cursor to a vertical line
+set guicursor=v-r-i:ver25
+
+" Sets cursor to underline when in normal mode
+set guicursor=n:hor25
+
+" Syntax color highlighting
+syntax on
+
+" Wraps text
+set wrap
+
+" Fast scrolling
+set ttyfast
+
+" Slow redraw for better performance
+set lazyredraw
+
+" Always display status line
+set laststatus=2
+
+" Matches matching Greater and Less than signs
+set matchpairs+=<:>
+
+" Shows line numbers
+set number
+
+" Highlights matching search patterns
+set hlsearch
+
+" Plugin start
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'           " Vundle extension manager
+Plugin 'neoclide/coc.nvim'              " Coc for code linting
+Plugin 'wakatime/vim-wakatime'          " Wakatime for measuring how much time is spent in Vim
+Plugin 'preservim/nerdtree'             " Nerdtree for viewing file tree
+Plugin 'jiangmiao/auto-pairs'           " Auto-pairs automatically closes brackets
+Plugin 'junegunn/fzf'                   " Fuzzy finder
+Plugin 'ryanoasis/vim-devicons'         " Icons for Vim
+Plugin 'vim-airline/vim-airline'        " Statusline for Vim
+Plugin 'vim-airline/vim-airline-themes' " Themes for Vim-airline
+Plugin 'thaerkh/vim-indentguides'       " Guides for indentation levels
+
+" Plugin end
+call vundle#end()
+
+" Sources a plugin file
+if filereadable(expand("~/.vimrc.plug"))
+	source ~/.vimrc.plug
+endif
