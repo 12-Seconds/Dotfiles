@@ -1,42 +1,9 @@
-" Must be first line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"General
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Must be first line, stops compatibility mode
 set nocompatible
-
-" Binds Control+s to save
-map <C-s> :w<cr>
-
-" Binds Al+q to save and quit
-map <M-q> :wq<cr>
-
-" Binds F6 to Nerdtree
-nmap <F6> :NERDTreeToggle<CR>
-
-" Binds Control-l to redraw screen and remove highlights
-nnoremap <silent> <C-l> :nohl<CR><C-l>
-
-" Sources a plugin file
-if filereadable(expand("~/.vimrc.plug"))
-	source ~/.vimrc.plug
-endif
-
-" Remaps Tab to choose suggestion Coc
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Forgot what this does, but I know it's something important
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Inserts suggested text when Enter is placed Coc
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
 
 " Spell checking
 set spell spelllang=en_us
@@ -59,23 +26,18 @@ filetype off
 " Make backspace key work
 set backspace=indent,eol,start
 
-" Sets up Vundle for extensions
-set rtp+=~/.vim/bundle/Vundle.vim
-
-" Sets cursor to a vertical line
-set guicursor=v-r-i:ver25
+" Auto read when file is changed
+set autoread
 
 " Sets cursor to underline when in normal mode
-set guicursor=n:hor25
+set guicursor+=n-v-r:hor25
+set guicursor+=i-c-ci:ver25
 
 " Syntax color highlighting
 syntax on
 
 " Wraps text
 set wrap
-
-" Fast scrolling
-set ttyfast
 
 " Slow redraw for better performance
 set lazyredraw
@@ -92,6 +54,115 @@ set number
 " Highlights matching search patterns
 set hlsearch
 
+" Hides special characters
+set nolist
+
+" Sets 15 lines to the cursor
+set so=15
+
+" Ignores case when searching
+set ignorecase
+
+" Adds a little margin
+set foldcolumn=1
+
+" Opens splits below main pane
+set splitbelow
+
+" Enables autosave
+let g:auto_save = 1
+
+" Autosaves when text is changed
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
+
+" Quit NERDTree when opening a file
+let NERDTreeQuitOnOpen = 1
+
+" Deleted files delete buffers as well
+let NERDTreeAutoDeleteBuffer = 1
+
+" Better NERDTree UI
+let NERDTreeMinimalUI = 0
+let NERDTreeDirArrows = 1
+let g:NERDTreeShowHidden =1
+
+" Vim terminal plugin config
+let g:terminal_key = '<C-M-n>'
+let g:terminal_shell = 'zsh'
+let g:terminal_height = '20'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Changes leader key
+let mapleader=' '
+
+" Maps Leader+Tab to change tab
+nnoremap <leader><TAB> gt
+
+" Maps Leader+w to close tab
+nnoremap <leader>w :tabclose<CR>
+
+" Maps Leader+n to new tab
+nnoremap <leader>n :tabnew<CR>
+
+"Binds Alt+s to save
+nnoremap <M-s> :w<cr>
+
+" Pressing Escape twice exits terminal buffer
+tnoremap <silent> <C-[><C-[> <C-\><C-n>
+
+" Binds Alt+q to quit
+map <M-q> :q<CR>
+
+" Binds Alt-t to Nerdtree
+nmap <M-t> :NERDTreeToggle<CR>
+
+" Maps Control-M to Minimap Toggle
+map <M-m> :MinimapToggle<CR>
+
+" Binds F6 to Goyo
+map <F6> :Goyo<CR>
+
+" Toggle spelling
+map <F5> :setlocal spell! spelllang=en_us<CR>
+
+" Binds Control-l to redraw screen and remove highlights
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+" Remaps Scroll up and down
+nnoremap <S-k> <C-u>
+nnoremap <S-j> <C-d>
+
+" Remaps Tab to choose suggestion Coc
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Aborts coc autosuggestions
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Highlight symbol and references
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Inserts suggested text when Enter is pressed Coc
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+
+" Sets up Vundle for extensions
+set rtp+=~/.vim/bundle/Vundle.vim
+
+
 " Plugin start
 call vundle#begin()
 
@@ -105,11 +176,44 @@ Plugin 'ryanoasis/vim-devicons'         " Icons for Vim
 Plugin 'vim-airline/vim-airline'        " Statusline for Vim
 Plugin 'vim-airline/vim-airline-themes' " Themes for Vim-airline
 Plugin 'thaerkh/vim-indentguides'       " Guides for indentation levels
+Plugin 'mhinz/vim-startify'             " Nice Vim start screen
+Plugin 'tpope/vim-surround'             " Completes brackets
+Plugin 'arcticicestudio/nord-vim'       " Nord theme for Vim
+Plugin 'tpope/vim-fugitive'             " Git plugin for Vim
+Plugin '907th/vim-auto-save'            " Autosave for Vim
+Plugin 'junegunn/goyo.vim'              " Distraction free Vim
+Plugin 'wfxr/minimap.vim'               " Minimap for Vim
+Plugin 'skywind3000/vim-terminal-help'  " Better Vim terminal
+Plugin 'wincent/terminus'               " Better terminal integration 
 
 " Plugin end
 call vundle#end()
 
-" Sources a plugin file
-if filereadable(expand("~/.vimrc.plug"))
-	source ~/.vimrc.plug
-endif
+" Vim start screen header
+let g:startify_custom_header =
+        \ map(split(system('sh ~/Documents/Vim-Startup'), '\n'), '"   ". v:val') + ['']
+
+" Vim start screen list
+let g:startify_lists = [
+        \{'type': 'bookmarks', 'header': ['     Bookmarks']             },
+        \{'type': 'commands', 'header': ['      Commands']              },
+        \]
+
+" Vim start screen bookmarks
+let g:startify_bookmarks = [ {'1': '~/.vimrc'}, {'2': '~/.zshrc'}, {'3': '~/.tmux.conf'} ]
+
+" Vim start screen commands
+let g:startify_commands = [
+    \ {'h': ['Help', 'help']},
+    \ {'i': ['Install plugins', 'PluginInstall']},
+    \ {'c': ['Clean plugins', 'PluginClean']},
+    \ {'t': ['Terminal', 'term']},
+    \ {'f': ['Fuzzy find', 'FZF']}
+    \]
+
+
+"Nord colorscheme
+colorscheme nord
+
+" Customize Goyo width
+let g:goyo_width = 100
