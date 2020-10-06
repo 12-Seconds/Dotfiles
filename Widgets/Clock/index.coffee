@@ -72,7 +72,7 @@ style: (->
     font-family: MesloLGS NF
     left: 1470px
     top: #{top}
-    bottom: 300px
+    top: 900px
     transform: #{transform}
     width: #{width}
 
