@@ -13,7 +13,7 @@ dateOptions =
   # display not only 'time' also 'date'
   showDate: true
   # format of 'date'
-  date: '%d/%m/%Y %a'
+  date: '%d-%m-%Y %A'
 
 format = (->
   if dateOptions.showDate
@@ -31,15 +31,17 @@ refreshFrequency: '1s'
 dateOptions: dateOptions
 
 render: (output) -> """
-  <div id='simpleClock'>#{output}</div>
+  <div id='simpleClock'>It is #{output}</div>
 """
 
 update: (output) ->
   if this.dateOptions.showDate
     data = output.split('\n')
 
-    html = data[1]
+    html = ' It is'
+    html += data[1]
     html += '<span class="date">'
+    html += '<br>'
     html += data[0]
     html += '</span>'
 
@@ -70,7 +72,7 @@ style: (->
     background: #{stylingOptions.background}
     color: #93bfce
     font-family: MesloLGS NF
-    left: 1470px
+    left: 800px
     top: #{top}
     top: 900px
     transform: #{transform}
