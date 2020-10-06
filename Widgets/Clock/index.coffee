@@ -7,6 +7,7 @@ stylingOptions =
   fullscreen: false
   # display position 'top', 'middle', 'bottom'
   vertical: 'middle'
+  horizontal: 'middle'
 
 dateOptions =
   # display not only 'time' also 'date'
@@ -24,7 +25,7 @@ format = (->
 command: "date +\"#{format}\""
 
 # the refresh frequency in milliseconds
-refreshFrequency: 100
+refreshFrequency: '1s'
 
 # for update function
 dateOptions: dateOptions
@@ -52,7 +53,7 @@ style: (->
   width = 'auto'
   transform = 'auto'
   bottom = '3%'
-  top = 'auto'
+  top = '1150px'
 
   if stylingOptions.fullscreen
     fontSize = '10em'
@@ -67,11 +68,11 @@ style: (->
 
   return """
     background: #{stylingOptions.background}
-    color: #000000
+    color: #93bfce
     font-family: MesloLGS NF
-    right: 10px
+    left: 1470px
     top: #{top}
-    bottom: 150px
+    bottom: 300px
     transform: #{transform}
     width: #{width}
 
@@ -81,9 +82,9 @@ style: (->
       margin: 0
       text-align: center
       padding: 10px 20px
-      border #000
+      border rgba(#fff, 0)
       border-width 2.5px
-      border-radius 5px
+      border-radius 15px
 
     #simpleClock .date
       margin-left: .5em
