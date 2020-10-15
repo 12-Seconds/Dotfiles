@@ -38,7 +38,7 @@ update: (output) ->
   if this.dateOptions.showDate
     data = output.split('\n')
 
-    html = ' It is'
+    html = ' It is '
     html += data[1]
     html += '<span class="date">'
     html += '<br>'

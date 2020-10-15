@@ -5,6 +5,10 @@
 " Must be first line, stops compatibility mode
 set nocompatible
 
+" For undo tree
+set undofile
+set undodir=~/.vim/undo
+
 " For Control+Space
 set hidden
 
@@ -112,6 +116,8 @@ nnoremap <leader>w :tabclose<CR>
 " Maps Leader+n to new tab
 nnoremap <leader>n :tabnew<CR>
 
+nnoremap <leader>u :MundoToggle<CR>
+
 " Maps Leader+b to toggle bookmark
 nnoremap <leader>b :BookmarkToggle<CR>
 
@@ -145,12 +151,20 @@ map <F5> :setlocal spell! spelllang=en_us<CR>
 " Toggles floating terminal
 map <C-M-n> :FloatermToggle<CR>
 
+let g:UltiSnipsExpandTrigger="<M-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 " Binds Control-l to redraw screen and remove highlights
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " Remaps Scroll up and down
 nnoremap <S-k> <C-u>
 nnoremap <S-j> <C-d>
+
+let g:VM_maps = {}
+let g:VM_maps["Select Cursor Up"] = '<M-C-k>'
+let g:VM_maps["Select Cursor Down"] = '<M-C-j>'
 
 " Remaps Tab to choose suggestion Coc
 inoremap <silent><expr> <TAB>
@@ -175,6 +189,8 @@ endif
 " Highlight symbol and references
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -194,7 +210,13 @@ Plugin 'vim-airline/vim-airline'                    " Statusline for Vim
 Plugin 'vim-airline/vim-airline-themes'             " Themes for Vim-airline
 Plugin 'thaerkh/vim-indentguides'                   " Guides for indentation levels
 Plugin 'mhinz/vim-startify'                         " Nice Vim start screen
+
 Plugin 'arcticicestudio/nord-vim'                   " Nord theme for Vim
+Plugin 'dracula/vim'                                " Dracula theme for Vim
+Plugin 'morhetz/gruvbox'
+Plugin 'ghifarit53/daycula-vim'
+
+Plugin 'joshdick/onedark.vim'                       " OneDark theme
 Plugin 'tpope/vim-fugitive'                         " Git plugin for Vim
 Plugin '907th/vim-auto-save'                        " Autosave for Vim
 Plugin 'junegunn/goyo.vim'                          " Distraction free Vim
@@ -204,8 +226,12 @@ Plugin 'ryanoasis/vim-devicons'                     " Icons for Vim
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'    " Nerdtree syntax highlighting
 Plugin 'kevinhwang91/rnvimr'                        " Ranger for Vim
 Plugin 'voldikss/vim-floaterm'                      " Floating terminal
-Plugin 'sbdchd/neoformat'                           " Vim code formating
 Plugin 'JamshedVesuna/vim-markdown-preview'         " Preview markdown files
+Plugin 'simnalamburt/vim-mundo'                     " Undo tree
+Plugin 'mg979/vim-visual-multi'                     " Multiple cursors
+Plugin 'wlemuel/vim-tldr'                           " Tldr in Vim
+Plugin 'vimwiki/vimwiki'                            " Wiki for Vim
+Plugin 'mattn/calendar-vim'                         " Vim calender
 
 " Plugin end
 call vundle#end()
@@ -214,7 +240,6 @@ call vundle#end()
 " Visual
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Vim start screen header
 let g:startify_custom_header =
         \ map(split(system('sh ~/Documents/Vim-Startup'), '\n'), '"". v:val') + ['']
 
@@ -225,7 +250,14 @@ let g:startify_lists = [
         \]
 
 " Vim start screen bookmarks
-let g:startify_bookmarks = [ {'1': '~/.vimrc'}, {'2': '~/.zshrc'}, {'3': '~/.tmux.conf'}, {'4': '~/.config/alacritty/alacritty.yml'}, {'5': '~/.hammerspoon/init.lua'}, {'6': '~/Documents/MD Notes/'}]
+let g:startify_bookmarks = [
+        \{'1': '~/.vimrc'},
+        \{'2': '~/.zshrc'},
+        \{'3': '~/.tmux.conf'},
+        \{'4': '~/.config/alacritty/alacritty.yml'},
+        \{'5': '~/.hammerspoon/init.lua'},
+        \{'6': '~/Documents/MD Notes/'}
+        \]
 
 " Vim start screen commands
 let g:startify_commands = [
@@ -235,9 +267,10 @@ let g:startify_commands = [
     \ {'c': ['Clean plugins', 'PluginClean']},
     \]
 
-
-"Nord colorscheme
+" Colorscheme
 colorscheme nord
+
+set termguicolors
 
 " Customize Goyo width
 let g:goyo_width = 100
@@ -266,4 +299,3 @@ cnoreabbrev news News
 " Htop
 command Htop FloatermNew htop
 cnoreabbrev htop Htop
-

@@ -1,0 +1,69 @@
+# Visualizer
+visualizer_type = "spectrum"
+visualizer_color = "blue"
+visualizer_look = "+|"
+
+# Playlist
+playlist_show_remaining_time = yes
+playlist_shorten_total_times = yes
+playlist_separate_albums = yes
+
+# Looks
+progressbar_look =  "->'"
+user_interface = alternative
+
+# How the browser looks
+browser_display_mode = columns
+search_engine_display_mode = columns
+playlist_editor_display_mode = columns
+
+# Centering
+autocenter_mode = yes
+centered_cursor = yes
+
+# Don't delete items
+allow_for_physical_item_deletion = no
+
+# Startup screens
+startup_screen = "playlist"
+startup_slave_screen = "visualizer"
+locked_screen_width_part = 50
+ask_for_locked_screen_width_part = no
+
+# Title
+clock_display_seconds = yes
+display_volume_level = yes
+display_bitrate = yes
+display_remaining_time = yes
+enable_window_title = yes
+
+# Media library settings
+ignore_leading_the = no
+media_library_sort_by_mtime = no
+media_library_primary_tag = album_artist
+default_place_to_search_in = database
+cyclic_scrolling = yes
+mpd_crossfade_time = "3"
+playlist_disable_highlight_delay = 1
+now_playing_prefix = "$b$r"
+now_playing_suffix = "$/b$/r"
+
+# Editor
+external_editor = nvim
+use_console_editor = yes
+
+# Colors
+progressbar_color = "blue"
+statusbar_color = "blue"
+progressbar_elapsed_color = "blue"
+alternative_ui_separator_color = "blue"
+color1 = "blue"
+color2 = "blue"
+main_window_color = "blue"
+statusbar_time_color = "blue"
+player_state_color = "blue"
+window_border_color = "blue"
+active_window_border = "blue"
+
+# Notifications
+execute_on_song_change = SONG=`ncmpcpp --current-song -q` && terminal-notifier -title NCMPCPP -message "Song changed to: $SONG" -execute "mpc toggle"
