@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "General
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -6,7 +6,7 @@
 set nocompatible
 
 " For undo tree
-set undofile
+set undofile 
 set undodir=~/.vim/undo
 
 " For Control+Space
@@ -25,7 +25,7 @@ set autoindent
 set tabstop=4
 
 " Set tab to 4 spaces
-set shiftwidth=4
+set shiftwidth=5
 
 " Disable automatic file detection
 filetype off
@@ -37,8 +37,7 @@ set backspace=indent,eol,start
 set autoread
 
 " Sets cursor to underline when in normal mode
-set guicursor+=n-v-r:hor25
-set guicursor+=i-c-ci:ver25
+set guicursor+=n-v-r:hor25 guicursor+=c:ver25
 
 " Syntax color highlighting
 syntax on
@@ -60,6 +59,9 @@ set hlsearch
 
 " Hides special characters
 set nolist
+
+" Sets fold in column
+set foldcolumn=3
 
 " Sets 15 lines to the cursor
 set so=15
@@ -88,11 +90,6 @@ let NERDTreeAutoDeleteBuffer = 1
 " Better NERDTree UI
 let g:NERDTreeShowHidden =1
 
-" Vim terminal plugin config
-let g:terminal_shell = 'zsh'
-let g:terminal_height = '20'
-
-
 " Auto format on save
 autocmd BufWritePost * Neoformat
 
@@ -103,18 +100,7 @@ autocmd BufWritePost * Neoformat
 " Changes leader key
 let mapleader=' '
 
-" Maps Leader+Tab to change tab
-nnoremap <leader><TAB> gt
-
-nnoremap <leader><left> :tabp<CR>
-
-nnoremap <leader><right> :tabn<CR>
-
-" Maps Leader+w to close tab
-nnoremap <leader>w :tabclose<CR>
-
-" Maps Leader+n to new tab
-nnoremap <leader>n :tabnew<CR>
+vmap <leader>y :w !pbcopy<CR><CR>
 
 nnoremap <leader>u :MundoToggle<CR>
 
@@ -126,6 +112,10 @@ nnoremap <leader>. :BookmarkNext<CR>
 
 " Maps Leader+, to previous bookmark
 nnoremap <leader>, :BookmarkPrev<CR>
+
+nnoremap <leader><leader><leader> :tabnew ~/Documents/MD\ Notes.md<CR>
+
+nnoremap <leader>t :TagbarToggle <CR>
 
 "Binds Alt+s to save
 nnoremap <M-s> :w<cr>
@@ -173,6 +163,9 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
 " Aborts coc autosuggestions
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -190,6 +183,30 @@ endif
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tabs
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+
+" Maps Control+w to close tab
+nnoremap <C-w> :bd<CR>
+
+" Maps Control+n to new tab
+nnoremap <C-t> :tabnew<CR>
+
+nnoremap <leader><left> :tabp<CR>
+
+nnoremap <leader><right> :tabn<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Windows
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -211,12 +228,12 @@ Plugin 'vim-airline/vim-airline-themes'             " Themes for Vim-airline
 Plugin 'thaerkh/vim-indentguides'                   " Guides for indentation levels
 Plugin 'mhinz/vim-startify'                         " Nice Vim start screen
 
-Plugin 'arcticicestudio/nord-vim'                   " Nord theme for Vim
-Plugin 'dracula/vim'                                " Dracula theme for Vim
-Plugin 'morhetz/gruvbox'
-Plugin 'ghifarit53/daycula-vim'
-
+Plugin 'arcticicestudio/nord-vim'                   " Nord theme
+Plugin 'dracula/vim'                                " Dracula theme
+Plugin 'morhetz/gruvbox'                            " Gruvbox theme
+Plugin 'ghifarit53/daycula-vim'                     " Daycula theme
 Plugin 'joshdick/onedark.vim'                       " OneDark theme
+
 Plugin 'tpope/vim-fugitive'                         " Git plugin for Vim
 Plugin '907th/vim-auto-save'                        " Autosave for Vim
 Plugin 'junegunn/goyo.vim'                          " Distraction free Vim
@@ -232,6 +249,9 @@ Plugin 'mg979/vim-visual-multi'                     " Multiple cursors
 Plugin 'wlemuel/vim-tldr'                           " Tldr in Vim
 Plugin 'vimwiki/vimwiki'                            " Wiki for Vim
 Plugin 'mattn/calendar-vim'                         " Vim calender
+Plugin 'RRethy/vim-illuminate'                      " Highlights word under cursor
+Plugin 'preservim/tagbar'                           " Vim tagbar
+Plugin 'sbdchd/neoformat'
 
 " Plugin end
 call vundle#end()
@@ -251,7 +271,7 @@ let g:startify_lists = [
 
 " Vim start screen bookmarks
 let g:startify_bookmarks = [
-        \{'1': '~/.vimrc'},
+        \{'1': '~/.config/vim/.vimrc'},
         \{'2': '~/.zshrc'},
         \{'3': '~/.tmux.conf'},
         \{'4': '~/.config/alacritty/alacritty.yml'},
@@ -268,7 +288,7 @@ let g:startify_commands = [
     \]
 
 " Colorscheme
-colorscheme nord
+colorscheme onedark
 
 set termguicolors
 
@@ -284,6 +304,10 @@ let g:airline#extensions#nerdtree_statusline = 1
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = airline#section#create(['windowswap', '%3p%% ', 'linenr', ':%3v'])
 let g:airline#extensions#tabline#enabled = 1
+
+map <C-M-S-a> :NERDTreeToggle <CR> <bar> :TagbarToggle <CR> <bar> :MinimapToggle <CR>
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

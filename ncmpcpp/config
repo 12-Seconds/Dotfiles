@@ -7,6 +7,8 @@ visualizer_look = "+|"
 playlist_show_remaining_time = yes
 playlist_shorten_total_times = yes
 playlist_separate_albums = yes
+song_list_format = "{{%a | %b | %t}|{%f}}{$R%l}"
+playlist_display_mode = "classic"
 
 # Looks
 progressbar_look =  "->'"
@@ -22,7 +24,7 @@ autocenter_mode = yes
 centered_cursor = yes
 
 # Don't delete items
-allow_for_physical_item_deletion = no
+allow_for_physical_item_deletion = yes
 
 # Startup screens
 startup_screen = "playlist"

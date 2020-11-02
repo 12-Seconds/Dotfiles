@@ -1,7 +1,14 @@
-# Needed for p10k prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p15k-instant-prompt-${(%):-%n}.zsh" ]]; then
+# Enable Powerlevel10k instant prompt.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+source /Users/Matei/antigen.zsh
+
+antigen use oh-my-zsh
+antigen bundle sobolevn/wakatime-zsh-plugin
+
+antigen apply
 
 # Exports Zsh variable
 export ZSH="/Users/Matei/.oh-my-zsh"
@@ -21,7 +28,6 @@ zsh-syntax-highlighting     # Highlights syntax
 z                           # Cd to commonly used directories
 sudo                        # Press escape twice to add sudo to the start of the last command
 vscode                      # Open VS Code and items in VS Code
-wakatime                    # Checks time spent in Zsh
 
 )
 
@@ -39,8 +45,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Sources fzf
 source ~/.fzf.zsh
-# Sources p10k
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zshi
 
@@ -86,8 +90,11 @@ alias outdated='/usr/local/bin/brew update > /dev/null && /usr/local/bin/brew ou
 alias mutt='neomutt'                                                                                                                            # Mutt aliased to newer version of Mutt
 alias tts='gtts-cli'                                                                                                                            # Text to speech
 alias benchmark='cd ~/.binaries/vtebench; cargo run --release; cd -'                                                                            # Runs CLI benchmark
-alias vtg='function video_to_gif(){ ffmpeg -i $1 output.gif && gifsicle -O3 output.gif -o output.gif && say "Video is ready!"};video_to_gif'    # Converts a video to a gif
+alias vtg='function video_to_gif(){ ffmpeg -i $1 output.gif && gifsicle -O3 output.gif -o output.gif && terminal-notifier -message "Video is ready"};video_to_gif'    # Converts a video to a gif
 alias fzf="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' --reverse"                                                             # Fuzzy Finder
+alias spotify="spt"
+alias please="sudo"
+alias python="python3"
 
 # Exports PATH
 export PATH="/usr/local/sbin:$PATH"
@@ -125,9 +132,13 @@ actions () {
     echo "Thin Dock spacer: defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"small-spacer-tile\";}'; killall Dock"
     echo
     echo 'Pandoc convert document formats: pandoc $File1 -f $OriginalFormat -t $DesiredFormat -s -o $File2'
+    echo
+    echo 'wget -r -np -c $url'
 
 }
-sh ~/Documents/Zsh-Startup
+#sh ~/Documents/Zsh-Startup
 
+export PATH="$PATH:/Users/Matei/.local/bin"
 
-
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
