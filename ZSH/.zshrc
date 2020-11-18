@@ -1,12 +1,23 @@
-# Enable Powerlevel10k instant prompt.
+# Enable Powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source /Users/Matei/antigen.zsh
+# Plugins
+
+source ~/antigen.zsh
 
 antigen use oh-my-zsh
+
+antigen bundle git
 antigen bundle sobolevn/wakatime-zsh-plugin
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle agkozak/zsh-z
+antigen bundle mafredri/zsh-async
+antigen theme romkatv/powerlevel10k
+antigen bundle hlissner/zsh-autopair
+antigen bundle command-not-found
 
 antigen apply
 
@@ -15,21 +26,6 @@ export ZSH="/Users/Matei/.oh-my-zsh"
 
 # Changes default terminal editor to Neovim
 export EDITOR='nvim'
-
-# Zsh theme
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Plugins
-plugins=(
-
-git                         # Version control system
-zsh-autosuggestions         # Suggestions for Zsh
-zsh-syntax-highlighting     # Highlights syntax
-z                           # Cd to commonly used directories
-sudo                        # Press escape twice to add sudo to the start of the last command
-vscode                      # Open VS Code and items in VS Code
-
-)
 
 # History ignores duplicate entries
 setopt hist_ignore_all_dups
@@ -43,20 +39,10 @@ setopt share_history
 # Sources oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# Sources fzf
-source ~/.fzf.zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zshi
-
-if [[ ! -d ~/.zsh-autopair ]]; then
-  git clone https://github.com/hlissner/zsh-autopair ~/.zsh-autopair
-fi
-
-source ~/.zsh-autopair/autopair.zsh
-autopair-init
-
 # Exports Fuzzy finder default searcher
 export FZF_DEFAULT_COMMAND='ag -g ""'
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#454e54"
 
 # Aliases
 alias iip='ipconfig getifaddr en1'                                                                                                                                       # Gets private IP
@@ -95,6 +81,10 @@ alias fzf="fzf --preview 'bat --style=numbers --color=always --line-range :500 {
 alias spotify="spt"                                                                                                                                                      # Spotify TUI
 alias please="sudo"                                                                                                                                                      # For a wholesome terminal experience
 alias python="python3"                                                                                                                                                   # Always use python3
+alias vim="nvim"
+alias vi="nvim"
+alias ping="prettyping"
+alias audio="killall coreaudiod"
 
 # Exports PATH
 export PATH="/usr/local/sbin:$PATH"
@@ -125,20 +115,15 @@ actions () {
     echo
     echo 'Reload Quick Look plugins: qlmanage -r'
     echo
-    echo 'CDR tp ISO: hdiutil makehybrid -iso -joliet -o $File.iso $File.cdr'
+    echo 'CDR tp ISO: hdiutil makehybrid -iso -joliet -o File.iso File.cdr'
     echo
-    echo 'Create floppy: dd if=/dev/zero of=$floppy.img bs=1024 count=1440'
+    echo 'Create floppy: dd if=/dev/zero of=floppy.img bs=1024 count=1440'
     echo
     echo "Thin Dock spacer: defaults write com.apple.dock persistent-apps -array-add '{\"tile-type\"=\"small-spacer-tile\";}'; killall Dock"
     echo
-    echo 'Pandoc convert document formats: pandoc $File1 -f $OriginalFormat -t $DesiredFormat -s -o $File2'
-    echo
-    echo 'wget -r -np -c $url'
-
+    echo 'Pandoc convert document formats: pandoc -s -o outputFile.ext inputFile.ext'
 }
-#sh ~/Documents/Zsh-Startup
-
-export PATH="$PATH:/Users/Matei/.local/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="/usr/local/opt/llvm/bin:$PATH"

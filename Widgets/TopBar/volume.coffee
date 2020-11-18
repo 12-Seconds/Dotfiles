@@ -10,9 +10,9 @@ render: (output) ->
 style: """
   -webkit-font-smoothing: antialiased
   color: #000
-  font: 15px MesloLGS NF
+  font: 17px Iosevka
   right: 30px
   top: 12px
   span
-    color: #93bfce
+    color: #fff
 """

@@ -7,7 +7,7 @@ visualizer_look = "+|"
 playlist_show_remaining_time = yes
 playlist_shorten_total_times = yes
 playlist_separate_albums = yes
-song_list_format = "{{%a | %b | %t}|{%f}}{$R%l}"
+song_list_format = "{{%a - %b - %t}|{%f}}{$R%l}"
 playlist_display_mode = "classic"
 
 # Looks

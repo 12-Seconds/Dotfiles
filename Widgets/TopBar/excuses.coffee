@@ -1,17 +1,17 @@
 # Highly modified nerdbar widget, from https://www.github.com/herrbischoff/nerdbar.widget
 
-command: "istats fan --value-only | tail -c +6"
+command: "echo; curl -silent http://developerexcuses.com | grep 'a href=\"/\"' | sed 's/<.*\">//    g' | sed 's/<.*>//g'"
 
-refreshFrequency: 1500 # ms
+refreshFrequency: 5000 # ms
 
 render: (output) ->
-  "<span>Fan speed: #{output}</span>"
+  "<span>Dev Excuses: #{output}</span>"
 
 style: """
   -webkit-font-smoothing: antialiased
   color: #000
   font: 17px Iosevka
-  left: 250px
+  left: 400px
   top: 12px
   span
     color: #fff
