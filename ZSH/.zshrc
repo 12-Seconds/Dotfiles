@@ -10,14 +10,9 @@ source ~/antigen.zsh
 antigen use oh-my-zsh
 
 antigen bundle git
-antigen bundle sobolevn/wakatime-zsh-plugin
-antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle agkozak/zsh-z
-antigen bundle mafredri/zsh-async
 antigen theme romkatv/powerlevel10k
-antigen bundle hlissner/zsh-autopair
-antigen bundle command-not-found
 
 antigen apply
 
@@ -40,9 +35,8 @@ setopt share_history
 source $ZSH/oh-my-zsh.sh
 
 # Exports Fuzzy finder default searcher
-export FZF_DEFAULT_COMMAND='ag -g ""'
-
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#454e54"
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # Aliases
 alias iip='ipconfig getifaddr en1'                                                                                                                                       # Gets private IP
@@ -62,11 +56,9 @@ alias virtualenv='python3 -m venv ./venv'                                       
 alias virtualact='source ./venv/bin/activate'                                                                                                                            # Activates virtual Python environment
 alias rm='trash'                                                                                                                                                         # Aliases rm to trash
 alias temp='istats all'                                                                                                                                                  # Gets temperature from command line
-alias :q='exit'                                                                                                                                                          # Aliases vim's :q to exit
-alias vim='nvim'                                                                                                                                                         # Aliases Vim to Neovim
-alias tmux-attach='tmux attach -t'                                                                                                                                       # Easy Tmux attach session
-alias tmux-new='tmux new-session -s'                                                                                                                                     # East Tmux new session
-alias tmux-list='tmux list-sessions'                                                                                                                                     # Easy Tmux list sessions
+alias tmux-attach='tmux -2 attach -t'                                                                                                                                       # Easy Tmux attach session
+alias tmux-new='tmux -2 new-session -s'                                                                                                                                     # East Tmux new session
+alias tmux-list='tmux -2 list-sessions'                                                                                                                                     # Easy Tmux list sessions
 alias cal='calcurse'                                                                                                                                                     # Aliases cal to calcurse, a terminal calender
 alias color='npx colortest'                                                                                                                                              # Aliases color to a npm colortest
 alias excuses='sh ~/Documents/Vim-Startup'                                                                                                                               # Curls developer excuses
@@ -77,20 +69,23 @@ alias mutt='neomutt'                                                            
 alias tts='gtts-cli'                                                                                                                                                     # Text to speech
 alias benchmark='cd ~/.binaries/vtebench; cargo run --release; cd -'                                                                                                     # Runs CLI benchmark
 alias vtg='function video_to_gif(){ ffmpeg -i $1 output.gif && gifsicle -O3 output.gif -o output.gif && terminal-notifier -message "Video is ready"};video_to_gif'       # Converts a video to a gif
-alias fzf="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' --reverse"                                                                            # Fuzzy Finder
 alias spotify="spt"                                                                                                                                                      # Spotify TUI
 alias please="sudo"                                                                                                                                                      # For a wholesome terminal experience
 alias python="python3"                                                                                                                                                   # Always use python3
+alias pip="python3 -m pip"
+alias pip3="python3 -m pip"
 alias vim="nvim"
 alias vi="nvim"
 alias ping="prettyping"
-alias audio="killall coreaudiod"
+alias audio="sudo pkill -9 coreaudiod"
+alias pipupgradeall="pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U"
+alias emacs="emacs -nw"
 
 # Exports PATH
 export PATH="/usr/local/sbin:$PATH"
 
-# Changes Bat theme to Nord
-export BAT_THEME="Nord"
+# Changes Bat theme
+export BAT_THEME="TwoDark"
 
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
@@ -126,4 +121,12 @@ actions () {
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval $(thefuck --alias)
+
+export TERM=xterm-256color
