@@ -1,7 +1,7 @@
 # Dotfiles
 My personal dotfiles
 
-Feel free to request dotfiles through the issues tab
+Use https://www.github.com/mcotocel/dots if you want more up-to-date dotfiles
 
 ## Neovim
 ![](https://github.com/12-Seconds/Dotfiles/blob/master/Screenshots/Neovim.png)
