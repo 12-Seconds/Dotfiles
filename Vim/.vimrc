@@ -97,12 +97,13 @@ Plug 'preservim/nerdcommenter'                                              " Vi
 Plug 'dense-analysis/ale'                                                   " Linting
 Plug 'lervag/vimtex', { 'for': 'tex' }                                      " LaTeX plugin for Vim
 Plug 'liuchengxu/vista.vim'                                                 " Tag bar for Vim
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
+"Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'voldikss/vim-skylight'
+Plug 'machakann/vim-swap'
 
 call plug#end()                                                             " Plugin end
 
@@ -436,14 +437,14 @@ command TSInstallAll :TSInstall python bash cpp json html css
 
 " Plugin Config
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true
-  },
-}
-EOF
+"lua <<EOF
+"require'nvim-treesitter.configs'.setup {
+"  ensure_installed = "maintained",
+"  highlight = {
+"    enable = true
+"  },
+"}
+"EOF
 
 set foldmethod=manual
-set foldexpr=nvim_treesitter#foldexpr()
+"set foldexpr=nvim_treesitter#foldexpr()

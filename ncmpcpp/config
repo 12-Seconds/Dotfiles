@@ -1,18 +1,18 @@
 # Visualizer
 visualizer_type = "spectrum"
 visualizer_color = "blue"
-visualizer_look = "+|"
 
 # Playlist
 playlist_show_remaining_time = yes
 playlist_shorten_total_times = yes
 playlist_separate_albums = yes
-song_list_format = "{{%a - %b - %t}|{%f}}{$R%l}"
+song_list_format = "{{$5%a - $2%b - $3%t}|{%f}}{$R%l}"
+current_item_prefix = "$5◯ $9"
 playlist_display_mode = "classic"
-
-# Looks
-progressbar_look =  "->'"
-user_interface = alternative
+titles_visibility = "no"
+header_visibility = "no"
+statusbar_visibility = "no"
+fetch_lyrics_for_current_song_in_background = "yes"
 
 # How the browser looks
 browser_display_mode = columns
@@ -28,7 +28,6 @@ allow_for_physical_item_deletion = yes
 
 # Startup screens
 startup_screen = "playlist"
-startup_slave_screen = "visualizer"
 locked_screen_width_part = 50
 ask_for_locked_screen_width_part = no
 
@@ -46,7 +45,7 @@ media_library_primary_tag = album_artist
 default_place_to_search_in = database
 cyclic_scrolling = yes
 mpd_crossfade_time = "3"
-playlist_disable_highlight_delay = 1
+playlist_disable_highlight_delay = 0
 now_playing_prefix = "$b$r"
 now_playing_suffix = "$/b$/r"
 
@@ -54,7 +53,7 @@ now_playing_suffix = "$/b$/r"
 external_editor = nvim
 use_console_editor = yes
 
-# Colors
+# Looks
 progressbar_color = "blue"
 statusbar_color = "blue"
 progressbar_elapsed_color = "blue"
@@ -66,6 +65,8 @@ statusbar_time_color = "blue"
 player_state_color = "blue"
 window_border_color = "blue"
 active_window_border = "blue"
+progressbar_look =  "▬◯ "
+user_interface = alternative
 
 # Notifications
-execute_on_song_change = SONG=`ncmpcpp --current-song -q` && terminal-notifier -title NCMPCPP -message "Song changed to: $SONG" -execute "mpc toggle"
+# execute_on_song_change = SONG=`ncmpcpp --current-song -q` && terminal-notifier -title NCMPCPP -message "Song changed to: $SONG" -execute "mpc toggle"
