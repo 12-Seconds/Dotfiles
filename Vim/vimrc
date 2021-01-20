@@ -97,8 +97,6 @@ Plug 'preservim/nerdcommenter'                                              " Vi
 Plug 'dense-analysis/ale'                                                   " Linting
 Plug 'lervag/vimtex', { 'for': 'tex' }                                      " LaTeX plugin for Vim
 Plug 'liuchengxu/vista.vim'                                                 " Tag bar for Vim
-"Plug 'nvim-treesitter/nvim-treesitter'
-"Plug 'nvim-treesitter/nvim-treesitter-refactor'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -303,8 +301,13 @@ nmap <silent> <M-x> :FZF <CR>
 " UI
 
 " Vim start screen header
-let g:startify_custom_header =
-            \ map(split(system('sh ~/Documents/Vim-Startup'), '\n'), '"". v:val') + ['']
+let g:startify_custom_header = [
+            \ '          ',
+            \ '          ',
+            \ '    Neovim',
+            \ '          ',
+            \ '          ',
+            \ ]
 
 "Vim start screen list
 let g:startify_lists = [
@@ -332,9 +335,16 @@ let g:startify_commands = [
         \{'c': ['Clean plugins', 'PlugClean']},
         \]
 
+let g:startify_center = '50'
+
 " Colorscheme
 colorscheme onedark
 set termguicolors
+
+set fillchars=vert:\ 
+hi! VertSplit guifg=None guibg=None
+hi! HorSplit guifg=None guibg=None
+hi NonText guifg=bg
 
 " Customize Goyo width
 let g:goyo_width = 100
@@ -363,24 +373,12 @@ function! LinterStatus() abort
 endfunction
 
 " Highlighting
-hi NormalColor guifg=White guibg=#007525
-hi InsertColor guifg=White guibg=#2c3978
-hi ReplaceColor guifg=White guibg=#731d00
-hi VisualColor guifg=White guibg=#424957
+hi StatusLine guifg=#969CA9 guibg=#282c34
 
 " Empty status
 set statusline=
 
-" Modes
-set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ INSERT\ ':''}
-set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ REPLACE\ ':''}
-set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-set statusline+=%#VisualColor#%{(mode()=='c')?'\ \ COMMAND\ ':''}
-set statusline+=%#VisualColor#%{(mode()=='t')?'\ \ TERMINAL\ ':''}
-
 " File
-set statusline+=⎜
 set statusline+=\ %F
 set statusline+=\ \╱
 

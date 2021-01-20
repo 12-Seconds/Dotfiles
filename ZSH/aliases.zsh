@@ -27,10 +27,6 @@ alias map='mapscii'
 
 alias virtenv='python3 -m venv ./venv'
 alias virtact='source ./venv/bin/activate'
-alias python="python3"
-alias pip="python3 -m pip"
-alias pip2="python2 -m pip"
-alias pip3="python3 -m pip"
 alias pipupgradeall="sudo pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U"
 alias pytop='bpytop'
 

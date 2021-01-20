@@ -1,13 +1,13 @@
 # Visualizer
 visualizer_type = "spectrum"
-visualizer_color = "blue"
+visualizer_color = "green, green, yellow, red"
 
 # Playlist
 playlist_show_remaining_time = yes
 playlist_shorten_total_times = yes
 playlist_separate_albums = yes
-song_list_format = "{{$5%a - $2%b - $3%t}|{%f}}{$R%l}"
-current_item_prefix = "$5◯ $9"
+song_list_format = "{{3%a - %b - %t}|{%f}}{$R%l}"
+current_item_prefix = "$3◯ $9"
 playlist_display_mode = "classic"
 titles_visibility = "no"
 header_visibility = "no"
@@ -28,6 +28,7 @@ allow_for_physical_item_deletion = yes
 
 # Startup screens
 startup_screen = "playlist"
+startup_slave_screen = "visualizer"
 locked_screen_width_part = 50
 ask_for_locked_screen_width_part = no
 
@@ -54,19 +55,18 @@ external_editor = nvim
 use_console_editor = yes
 
 # Looks
-progressbar_color = "blue"
-statusbar_color = "blue"
-progressbar_elapsed_color = "blue"
-alternative_ui_separator_color = "blue"
+progressbar_color = "red"
+statusbar_color = "green"
+progressbar_elapsed_color = "red"
+alternative_ui_separator_color = "green"
 color1 = "blue"
-color2 = "blue"
-main_window_color = "blue"
-statusbar_time_color = "blue"
-player_state_color = "blue"
-window_border_color = "blue"
-active_window_border = "blue"
+color2 = "green"
+main_window_color = "green"
+statusbar_time_color = "green"
+player_state_color = "green"
+window_border_color = "green"
+active_window_border = "green"
 progressbar_look =  "▬◯ "
 user_interface = alternative
 
-# Notifications
-# execute_on_song_change = SONG=`ncmpcpp --current-song -q` && terminal-notifier -title NCMPCPP -message "Song changed to: $SONG" -execute "mpc toggle"
+execute_on_song_change = /usr/local/bin/terminal-notifier -title ncmpcpp -message "$(/usr/local/bin/mpc current)"
