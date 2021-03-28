@@ -1,3 +1,7 @@
+# This repo is now archived!
+
+I have mostly moved to Linux, so this repo won't be updated anymore
+
 # Dotfiles
 My personal dotfiles
 
